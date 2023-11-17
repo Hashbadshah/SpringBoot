@@ -3,7 +3,9 @@ package com.spring.user.UserProfile.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,5 +39,14 @@ public class UserController {
 	public ResponseEntity<List<User>> getAllUsers(){
 		List<User> user = userService.getAllUsers();
 		return new ResponseEntity<>(user,HttpStatus.OK);
+	}
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<String> deleteUser(@PathVariable Long UserId){
+		User del=userService.deleteUserById(UserId);
+		if(del!=null) {
+			return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+		}else {
+		return new ResponseEntity<>("User not found ", HttpStatus.NOT_FOUND);
+		}
 	}
 }

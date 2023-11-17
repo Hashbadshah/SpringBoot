@@ -34,4 +34,16 @@ public class UserServiceImpl implements UserService{
 		System.out.println("Getting data from DB: "+users);
 		return users;
 	}
+	@Override
+	public User deleteUserById(Long UserId) {
+		// TODO Auto-generated method stub
+		Optional<User> users=userRepository.findById(UserId);
+		if(users.isPresent()) {
+			User user=users.get();
+			userRepository.delete(user);
+			return user;
+		}else {
+			return null;
+		}
+	}
 }
